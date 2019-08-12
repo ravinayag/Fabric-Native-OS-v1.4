@@ -1,4 +1,4 @@
-# Hyperledger Fabric on Native OS – Version used 1.4
+# Hyperledger Fabric on Native OS – Version used hlf1.4 & Ubuntu 16.4
 The purpose of the project to install  and run the Hyperledger fabric v1.4 on  Native  OS ( Ubuntu 16.04).   The Smart contracts written in GO lang and  used as GO Plugins. 
 Docker and docker-compose are not used in this project either for fabric peers or chaincode.
 
