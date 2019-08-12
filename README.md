@@ -25,7 +25,7 @@ Next, few dependencies to install.
 - $ cd $GOPATH/src/github.com/hyperledger/
 
 ## Now Download the source code from [GitHub](https://github.com/hyperledger/fabric)
-*	wget https://github.com/hyperledger/fabric/archive/release-1.4.zip
+*	wget [sourcecodefile](https://github.com/hyperledger/fabric/archive/release-1.4.zip)
 *	tar zxf hyperledger-fabric-linux-amd64-1.4.0.tar.gz
 *	mv $DIR fabric
 *	cd $GOPATH/src/github.com/hyperledger/fabric
@@ -73,7 +73,7 @@ Ensure, don’t have any errors and running.  Now lets create the channel for ou
 
 $ FABRIC_CFG_PATH=$FAB_CONF $FAB_BIN/configtxgen -profile SampleSingleMSPChannel -outputCreateChannelTx mychannel.tx -channelID mychannel
 
-A file will be created as mychannel.tx and we will use this file to create channel in the network with orderer.
+_A file will be created as mychannel.tx and we will use this file to create channel in the network with orderer.
  
 $ FABRIC_CFG_PATH=$FAB_CONF $FAB_BIN/peer channel create -f ./mychannel.tx -c mychannel -o 127.0.0.1:7050
 
@@ -89,7 +89,7 @@ we have to explicitly initialize our smart contract assets first.
 
 $ FABRIC_CFG_PATH=$FAB_CONF $FAB_BIN/peer chaincode invoke -C mychannel -n example02 -c '{"Args":["invoke", "a", "500", "b","200"]}'
 
-After successfully initialized, we can send/query  other transactions. For example:
+> After successfully initialized, we can send/query  other transactions. For example:
 
 $ FABRIC_CFG_PATH=$FAB_CONF $FAB_BIN/peer chaincode invoke -C mychannel -n example02 -c '{"Args":["transfer","a","b","100"]}'
 
