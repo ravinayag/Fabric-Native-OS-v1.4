@@ -40,6 +40,60 @@ It will time to build the binaries and config files and back to prompt.
 -	export FAB_CONF=$HOME/gopath/src/github.com/hyperledger/fabric/sampleconfig
 
 #### Smart Contract as Go Plugin
-Since I'm going to use the system chaincode for the smart contract. If you try to execute with default chaincode (example02) you end with this errors. Hence i used the this [chaincode](http://github.com)
+Since I'm going to use the sample system chaincode for the smart contract from examples and little modification for native os. 
+If you try with default chaincode (example02) you end with this errors as given here ![chaincode build error](link-to-image)
+
+Hence i  recommend and used the this [chaincode.go](https://github.com/ravinayag/Fabric-Native-OS-v1.4/blob/master/chaincode.go) file for learning purpose.
+###### Lets build the go plugin 
+- cd ~/gopath/src/github.com/hyperledger/fabric/examples/chaincode/go/example02
+_ go build -buildmode=plugin -o example02.so chaincode.go
+
+That will produce example02.so file and will use this to our smart contract plugin binaries.
+
+##### Configure plugin with peer
+1,  edit the $FAB_CONF\core.yaml  and find this line "chaincode:" and then "system:" , now add “example02: enable” under the system.chaincode
+
+Finally it should be like this : ![core.yaml file ](link-to-image)
+
+2,  Now Add the plugins configuration for the same to "systemPlugins:" 
+
+
+## Time to Launch Fabric Network 
+ Our fabric consists for 1 orderer and 1 peer using profile sampleconfig given in the configtx.yaml.
+ Lets open two additional terminals and export your paths given above.
+ 
+ #### Start the Orderer service first one terminal.
+ $ FABRIC_CFG_PATH=$FAB_CONF ORDERER_GENERAL_GENESISPROFILE=SampleSingleMSPSolo $FAB_BIN/orderer
+ 
+ #### Start the peer service next  on second terminal
+ $ FABRIC_CFG_PATH=$FAB_CONF FABRIC_LOGGING_SPEC=gossip=warn:msp=warn:debug $FAB_BIN/peer node start
+ 
+Let the orderer and peer run on the two terminals, now you back to old terminal.
+Ensure, don’t have any errors and running.  Now lets create the channel for our smart contract communication.  We use configtxgen tool to generate a  channel based on $FAB_CONF\configtx.yaml
+
+$ FABRIC_CFG_PATH=$FAB_CONF $FAB_BIN/configtxgen -profile SampleSingleMSPChannel -outputCreateChannelTx mychannel.tx -channelID mychannel
+
+A file will be created as mychannel.tx and we will use this file to create channel in the network with orderer.
+ 
+$ FABRIC_CFG_PATH=$FAB_CONF $FAB_BIN/peer channel create -f ./mychannel.tx -c mychannel -o 127.0.0.1:7050
+
+_mychannel.block_  containing the artifacts about the channel and we ask peers to join the channel. 
+
+$ FABRIC_CFG_PATH=$FAB_CONF $FAB_BIN/peer channel join -b mychannel.block
+
+If everything perfect, then did a wonderfull job. _Kudos !!!_
+
+### Initiate the Transactions with smart contract
+
+we have to explicitly initialize our smart contract assets first.
+
+$ FABRIC_CFG_PATH=$FAB_CONF $FAB_BIN/peer chaincode invoke -C mychannel -n example02 -c '{"Args":["invoke", "a", "500", "b","200"]}'
+
+After successfully initialized, we can send/query  other transactions. For example:
+
+$ FABRIC_CFG_PATH=$FAB_CONF $FAB_BIN/peer chaincode invoke -C mychannel -n example02 -c '{"Args":["transfer","a","b","100"]}'
+
+$ FABRIC_CFG_PATH=$FAB_CONF $FAB_BIN/peer chaincode query -C mychannel -n example02 -c '{"Args":["query","a"]}'
+
 
 
