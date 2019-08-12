@@ -63,37 +63,40 @@ Finally it should be like this : ![core.yaml file ](link-to-image)
  Lets open two additional terminals and export your paths given above.
  
  #### Start the Orderer service first one terminal.
+ ```bash
  $ FABRIC_CFG_PATH=$FAB_CONF ORDERER_GENERAL_GENESISPROFILE=SampleSingleMSPSolo $FAB_BIN/orderer
- 
+ ```
  #### Start the peer service next  on second terminal
+ ```bash
  $ FABRIC_CFG_PATH=$FAB_CONF FABRIC_LOGGING_SPEC=gossip=warn:msp=warn:debug $FAB_BIN/peer node start
- 
+ ```
 Let the orderer and peer run on the two terminals, now you back to old terminal.
 Ensure, don’t have any errors and running.  Now lets create the channel for our smart contract communication.  We use configtxgen tool to generate a  channel based on $FAB_CONF\configtx.yaml
-
+```bash
 $ FABRIC_CFG_PATH=$FAB_CONF $FAB_BIN/configtxgen -profile SampleSingleMSPChannel -outputCreateChannelTx mychannel.tx -channelID mychannel
+```
 
-_A file will be created as mychannel.tx and we will use this file to create channel in the network with orderer.
- 
+A file will be created as mychannel.tx and we will use this file to create channel in the network with orderer.
+```bash 
 $ FABRIC_CFG_PATH=$FAB_CONF $FAB_BIN/peer channel create -f ./mychannel.tx -c mychannel -o 127.0.0.1:7050
-
+```
 _mychannel.block_  containing the artifacts about the channel and we ask peers to join the channel. 
-
+```bash
 $ FABRIC_CFG_PATH=$FAB_CONF $FAB_BIN/peer channel join -b mychannel.block
-
+```
 If everything perfect, then did a wonderfull job. _Kudos !!!_
 
 ### Initiate the Transactions with smart contract
 
 we have to explicitly initialize our smart contract assets first.
-
+```bash
 $ FABRIC_CFG_PATH=$FAB_CONF $FAB_BIN/peer chaincode invoke -C mychannel -n example02 -c '{"Args":["invoke", "a", "500", "b","200"]}'
-
+```
 > After successfully initialized, we can send/query  other transactions. For example:
-
+```bash
 $ FABRIC_CFG_PATH=$FAB_CONF $FAB_BIN/peer chaincode invoke -C mychannel -n example02 -c '{"Args":["transfer","a","b","100"]}'
 
 $ FABRIC_CFG_PATH=$FAB_CONF $FAB_BIN/peer chaincode query -C mychannel -n example02 -c '{"Args":["query","a"]}'
-
+```
 
 
