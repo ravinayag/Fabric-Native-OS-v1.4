@@ -1,5 +1,3 @@
-# Fabric-Native-OS-v1.4
-
 # Hyperledger Fabric on Native OS – Version used 1.4
 The purpose of the project to install  and run the Hyperledger fabric v1.4 on  Native  OS ( Ubuntu 16.04).   The Smart contracts written in GO lang and  used as GO Plugins. 
 Docker and docker-compose are not used in this project either for fabric peers or chaincode.
@@ -14,8 +12,8 @@ Hyperledger Fabric depends upon the Go language.
 •	Change into your home directory with the command cd ~/  
 •	Download the tar file with the command wget https://storage.googleapis.com/golang/ 
 •	Unpack the file with the command tar xvzf go1*.tar.gz 
-•	Now we need to set GOPATH and GOROOT with the following commands: 
 
+######## Now we need to set GOPATH and GOROOT with the following commands: 
 •	mkdir $HOME/gopath
 •	export GOPATH=$HOME/gopath
 •	export GOROOT=$HOME/go
