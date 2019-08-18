@@ -99,4 +99,7 @@ $ FABRIC_CFG_PATH=$FAB_CONF $FAB_BIN/peer chaincode invoke -C mychannel -n examp
 $ FABRIC_CFG_PATH=$FAB_CONF $FAB_BIN/peer chaincode query -C mychannel -n example02 -c '{"Args":["query","a"]}'
 ```
 
+Now you able to do chaincode transactions and query.
+
+Kindly drop me msg for comments. 
 
