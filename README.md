@@ -79,16 +79,20 @@ Finally it should be like this : ![2core.yaml file ](https://github.com/ravinaya
  Our fabric consists for 1 orderer and 1 peer using profile sampleconfig given in the configtx.yaml.
  Lets open two additional terminals and export your paths given above.
  
+ 
  #### Start the Orderer service first one terminal.
  ```bash
+ $ sudo mkdir -p  /var/hyperledger && sudo chown $(whoami):$(whoami) /var/hyperledger
+ 
  $ FABRIC_CFG_PATH=$FAB_CONF ORDERER_GENERAL_GENESISPROFILE=SampleSingleMSPSolo $FAB_BIN/orderer
  ```
  #### Start the peer service next  on second terminal
  ```bash
  $ FABRIC_CFG_PATH=$FAB_CONF FABRIC_LOGGING_SPEC=gossip=warn:msp=warn:debug $FAB_BIN/peer node start
  ```
-Let the orderer and peer run on the two terminals, now you back to old terminal.
-Ensure, don’t have any errors and running.  Now lets create the channel for our smart contract communication.  We use configtxgen tool to generate a  channel based on $FAB_CONF\configtx.yaml
+Let the orderer and peer run on the two terminals, now you back to old terminal and ensure, don’t have any errors and running.
+ 
+Now lets create the channel for our smart contract communication.  We use configtxgen tool to generate a  channel based on $FAB_CONF\configtx.yaml, Open a new terminal, 
 ```bash
 $ FABRIC_CFG_PATH=$FAB_CONF $FAB_BIN/configtxgen -profile SampleSingleMSPChannel -outputCreateChannelTx mychannel.tx -channelID mychannel
 ```
