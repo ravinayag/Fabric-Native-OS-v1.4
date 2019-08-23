@@ -45,9 +45,12 @@ If you try with default chaincode (example02) you end with this errors as given 
 
 Hence i  recommend and used the this [chaincode.go](https://github.com/ravinayag/Fabric-Native-OS-v1.4/blob/master/chaincode.go) file for learning purpose.
 ###### Lets build the go plugin 
-- cd ~/gopath/src/github.com/hyperledger/fabric/examples/chaincode/go/example02
-_ go build -buildmode=plugin -o example02.so chaincode.go
 
+Download the chaincode.go file to the below location and build
+```bash
+$ cd ~/gopath/src/github.com/hyperledger/fabric/examples/chaincode/go/example02
+$ go build -buildmode=plugin -o example02.so chaincode.go
+```
 That will produce example02.so file and will use this to our smart contract plugin binaries.
 
 ##### Configure plugin with peer
