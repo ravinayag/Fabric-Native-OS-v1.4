@@ -55,11 +55,25 @@ That will produce example02.so file and will use this to our smart contract plug
 
 ##### Configure plugin with peer
 1,  edit the $FAB_CONF\core.yaml  and find this line "chaincode:" and then "system:" , now add “example02: enable” under the system.chaincode
-
-Finally it should be like this : ![core.yaml file ](link-to-image)
+```bash
+chaincode:
+  system:
+    ...
+    example02: enable
+```
+Finally it should be like this : ![1core.yaml file ](https://github.com/ravinayag/Fabric-Native-OS-v1.4/blob/master/1core.yaml)
 
 2,  Now Add the plugins configuration for the same to "systemPlugins:" 
-
+```bash
+chaincode:
+  systemPlugins:
+      - enabled: true
+        name: example02
+        path: $FAB-CONF/src/github.com/hyperledger/fabric/examples/chaincode/go/example02/example02.so
+        invokableExternal: true
+        invokableCC2CC: true
+```
+Finally it should be like this : ![2core.yaml file ](https://github.com/ravinayag/Fabric-Native-OS-v1.4/blob/master/2core.yaml)
 
 ## Time to Launch Fabric Network 
  Our fabric consists for 1 orderer and 1 peer using profile sampleconfig given in the configtx.yaml.
