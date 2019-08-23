@@ -41,7 +41,7 @@ It will time to build the binaries and config files and back to prompt.
 
 #### Smart Contract as Go Plugin
 Since I'm going to use the sample system chaincode for the smart contract from examples and little modification for native os. 
-If you try with default chaincode (example02) you end with this errors as given here ![chaincode build error](link-to-image)
+If you try with default chaincode (example02) you end with this errors as given here ![chaincode build error](https://github.com/ravinayag/Fabric-Native-OS-v1.4/blob/master/chaincode_error.png)
 
 Hence i  recommend and used the this [chaincode.go](https://github.com/ravinayag/Fabric-Native-OS-v1.4/blob/master/chaincode.go) file for learning purpose.
 ###### Lets build the go plugin 
@@ -61,7 +61,7 @@ chaincode:
     ...
     example02: enable
 ```
-Finally it should be like this : ![1core.yaml file ](https://github.com/ravinayag/Fabric-Native-OS-v1.4/blob/master/1core.yaml)
+Finally it should be like this : ![1core.yaml file ](https://github.com/ravinayag/Fabric-Native-OS-v1.4/blob/master/1core.yaml.png)
 
 2,  Now Add the plugins configuration for the same to "systemPlugins:" 
 ```bash
@@ -73,7 +73,7 @@ chaincode:
         invokableExternal: true
         invokableCC2CC: true
 ```
-Finally it should be like this : ![2core.yaml file ](https://github.com/ravinayag/Fabric-Native-OS-v1.4/blob/master/2core.yaml)
+Finally it should be like this : ![2core.yaml file ](https://github.com/ravinayag/Fabric-Native-OS-v1.4/blob/master/2core.yaml.png)
 
 ## Time to Launch Fabric Network 
  Our fabric consists for 1 orderer and 1 peer using profile sampleconfig given in the configtx.yaml.
